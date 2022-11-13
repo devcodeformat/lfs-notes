@@ -1,0 +1,65 @@
+Convert user to 'root'
+$ sudo su -
+
+List disks connected
+# fdisk -l
+
+Select disk to partition
+# fdisk /***/*** (e.g., "# fdisk /dev/sda")
+
+# First Partition #
+
+(fdisk): Create a new partition
+: n
+
+(fdisk): Partition type
+: p
+
+(fdisk): Partition number
+: 1
+
+(fdisk): First sector
+: 2048
+
+(fdisk): Last sector
+: +1G
+
+(fdisk): Change type
+: t
+
+(fdisk): List all
+: L
+
+(fdisk): Linux swap
+: 82
+
+# Second Partition #
+
+(fdisk): Create new partition
+: n
+
+(fdisk): Partition type
+: p
+
+(fdisk): Partition number
+: 2
+
+(fdisk): First sector '2099200'
+: [default]
+
+(fdisk): Last sector [remaining space]
+: [default]
+
+(fdisk): Write to disk
+: w
+
+# File System/Swap Establishment #
+
+File system for main
+# mkfs -v -t ext4 /***/*** (e.g., "# mkfs -v -t ext4 /dev/sda2")
+
+system for swap
+# mkswap /***/*** (e.g., "#mkswap /dev/sda1")
+
+
+
