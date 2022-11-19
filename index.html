@@ -114,7 +114,7 @@
                     : +512M 
                     : t
                     : L
-                    : ef
+                    : ef (or EFI option)
                 </code>
                 <p>Root Partition</p>
                 <code>
@@ -133,6 +133,17 @@
                     $ mkfs.fat -F32 /dev/sda1
                     $ mkfs.ext4 /dev/sda2
                 </code>
+                <p>Setting $LFS Variable</p>
+                <code>
+                    $ export LFS=/mnt/lfs
+                    $ echo $LFS
+                </code>
+                <p>Mount New Partition</p>
+                <code>
+                    $ mkdir -pv $LFS
+                    $ mount -v -t ext4 /dev/sda2 $LFS
+                </code>
+                <p>Next Install Packages <a href="#">Next Page</a></p>
             </pre>
         </div>
     </body>
