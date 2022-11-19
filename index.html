@@ -90,6 +90,48 @@
                     sudo dnf install texinfo
                     sudo dnf install byacc
                 </code>
+                <p>Verify UEFI Enabled</p>
+                <code>
+                    $ ls /sys/firmware/efi/efivars
+                    If directory exists, system is UEFI enabled.
+                </code>
+                <p>UEFI Enabled Partition Set-Up</p>
+                <code>
+                    $ fdisk -l
+                </code>
+                <code>
+                    $ fdisk /dev/sda (targeted disk)
+                    Command 'd' - To delete partition
+                    Command 'n' - To create new partition
+                </code>
+                <p>EFI (ESP) Partition for UEFI</p>
+                <code>
+                    : n 
+                    : p (default)
+                    : 1 (default)
+                    : 2048 (default)
+                    : +512M 
+                    : t
+                    : L
+                    : ef
+                </code>
+                <p>Root Partition</p>
+                <code>
+                    : n
+                    : p (default)
+                    : 2 (default)
+                    : 1050624(default)
+                    : 52428799 (default)
+                </code>
+                <p>Write Changes</p>
+                <code>
+                    : w
+                </code>
+                <p>Create filesystem for UEFI</p>
+                <code>
+                    $ mkfs.fat -F32 /dev/sda1
+                    $ mkfs.ext4 /dev/sda2
+                </code>
             </pre>
         </div>
     </body>
