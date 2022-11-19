@@ -8,7 +8,7 @@
             <h1>LFS Notes</h1>
         </div>
         <div>
-            <h3>Initial Steps:</h3>
+            <h3>:Initial Steps:</h3>
             <ul>
                 <li>USB Drive > (4 GB)</li>
                 <li>Fedora Media Writer</li>
@@ -17,12 +17,18 @@
                 <li>Disable - Secure Boot</li>
                 <li>Grub -> Boot Fedora Workstation -> Try Fedora</li>
                 <li>Open Terminal</li>
-                <li>$ pwd -> /home/liveuser</li>
-                <li>$ touch version-check.sh</li>
-                <li>$ gnome-text-editor version-check.sh</li>
             </ul>
             <pre>
+                <hr />
+                <p>Input Commands:</p>
+                <code>
+                    $ pwd -> /home/liveuser
+                    $ touch version-check.sh
+                    $ gnome-text-editor version-check.sh
+                </code>
+                <hr />
                 <p>Paste the Following:</p>
+                <hr />
                 <code>
                     #!/bin/bash
                     # Simple script to list version numbers of critical development tools
@@ -37,11 +43,11 @@
                     bison --version | head -n1
                     
                     if [ -h /usr/bin/yacc ]; then
-                    echo "/usr/bin/yacc -> `readlink -f /usr/bin/yacc`";
+                        echo "/usr/bin/yacc -> `readlink -f /usr/bin/yacc`";
                     elif [ -x /usr/bin/yacc ]; then
-                    echo yacc is `/usr/bin/yacc --version | head -n1`
+                        echo yacc is `/usr/bin/yacc --version | head -n1`
                     else
-                    echo "yacc not found"
+                        echo "yacc not found"
                     fi
                     
                     echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
@@ -50,11 +56,11 @@
                     gawk --version | head -n1
                     
                     if [ -h /usr/bin/awk ]; then
-                    echo "/usr/bin/awk -> `readlink -f /usr/bin/awk`";
+                        echo "/usr/bin/awk -> `readlink -f /usr/bin/awk`";
                     elif [ -x /usr/bin/awk ]; then
-                    echo awk is `/usr/bin/awk --version | head -n1`
+                        echo awk is `/usr/bin/awk --version | head -n1`
                     else
-                    echo "awk not found"
+                        echo "awk not found"
                     fi
                     
                     gcc --version | head -n1
@@ -78,11 +84,16 @@
                     else echo "g++ compilation failed"; fi
                     rm -f dummy.c dummy
                 </code>
-                <p>$ bash version-check.sh</p>
-                <p>Missing Packages</p>
+                <hr />
+                <p>Run Command:</p>
                 <code>
-                    Fedora Workstation:
-                    
+                    $ bash version-check.sh
+                </code>
+                <hr />
+                <p>Missing Packages:</p>
+                <hr />
+                <p>(Fedora Workstation)</p>
+                <code>
                     sudo dnf install bison
                     sudo dnf install g++
                     sudo dnf install patch
@@ -91,12 +102,13 @@
                     sudo dnf install texinfo
                     sudo dnf install byacc
                 </code>
-                <p>Verify UEFI Enabled</p>
+                <hr />
+                <p>Verify UEFI Enabled:</p>
                 <code>
                     $ ls /sys/firmware/efi/efivars
                     If directory exists, system is UEFI enabled.
                 </code>
-                <p>UEFI Enabled Partition Set-Up</p>
+                <p>UEFI Enabled Partition Set-Up:</p>
                 <code>
                     $ fdisk -l
                 </code>
@@ -105,7 +117,9 @@
                     Command 'd' - To delete partition
                     Command 'n' - To create new partition
                 </code>
-                <p>EFI (ESP) Partition for UEFI</p>
+                <p>(Swap partition is not needed, swap files can be added to root after install.)</p>
+                <p>(Swap files are easier to create/delete and adjust compared to swap partition.)</p>
+                <p>EFI (ESP) Partition for UEFI:</p>
                 <code>
                     : n 
                     : p (default)
@@ -116,7 +130,7 @@
                     : L
                     : ef (or EFI option)
                 </code>
-                <p>Root Partition</p>
+                <p>Root Partition:</p>
                 <code>
                     : n
                     : p (default)
@@ -124,26 +138,28 @@
                     : 1050624(default)
                     : 52428799 (default)
                 </code>
-                <p>Write Changes</p>
+                <p>Write Changes:</p>
                 <code>
                     : w
                 </code>
-                <p>Create filesystem for UEFI</p>
+                <hr />
+                <p>Create filesystem for UEFI:</p>
                 <code>
                     $ mkfs.fat -F32 /dev/sda1
-                    $ mkfs.ext4 /dev/sda2
+                    $ mkfs -v -t ext4 /dev/sda2
                 </code>
-                <p>Setting $LFS Variable</p>
+                <p>Setting $LFS Variable:</p>
                 <code>
                     $ export LFS=/mnt/lfs
                     $ echo $LFS
                 </code>
-                <p>Mount New Partition</p>
+                <p>Mount New Partition:</p>
                 <code>
                     $ mkdir -pv $LFS
                     $ mount -v -t ext4 /dev/sda2 $LFS
                 </code>
-                <p>Next Install Packages <a href="#">Next Page</a></p>
+                <hr />
+                <p>Next Install Packages: <a href="#">Next Page</a></p>
             </pre>
         </div>
     </body>
